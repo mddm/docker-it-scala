@@ -1,9 +1,8 @@
 docker-it-scala
 =============
 
-[![Build Status](https://travis-ci.org/whisklabs/docker-it-scala.svg?branch=master)](https://travis-ci.org/whisklabs/docker-it-scala)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.whisk/docker-testkit-core_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.whisk/docker-testkit-core_2.12)
-[![Join the chat at https://gitter.im/whisklabs/docker-it-scala](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/whisklabs/docker-it-scala?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/mddm/docker-it-scala.svg?branch=master)](https://travis-ci.org/mddm/docker-it-scala)
+[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=com.sonarqube.examples.standard-sqscanner-travis-project)](https://sonarcloud.io/dashboard/index/com.sonarqube.examples.standard-sqscanner-travis-project)
 
 Set of utility classes to make integration testing with dockerised services in Scala easy.
 
