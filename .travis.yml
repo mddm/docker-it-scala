@@ -1,40 +1,39 @@
 sudo: true
 services:
-- docker
+  - docker
 
 before_install:
-- docker pull mongo:3.0.6
-- docker pull elasticsearch:1.7.1
-- docker pull spotify/kafka
+  - docker pull mongo:3.0.6
+  - docker pull elasticsearch:1.7.1
+  - docker pull spotify/kafka
 
 language: scala
 
 scala:
-- 2.12.3
-- 2.11.11
+  - 2.12.3
+  - 2.11.11
 
 addons:
   sonarcloud:
-    organization: mddm-github
-    token: 
-    secure: K58nlQLtyipATdrNGRoXdu8QTnivAAWFiCxXZjJhKwr0ZMExkNLoRaN8UBPQgu/yhkt+B+fs4quWITn5XO9qR11FIaokrfZT2Lzq3AAAMhFNXcAYmSFMOQbD45JMsjXi2SJxuDCguGWLuE9O+AVXmRQmc3WXUZ88uC63yU+3zkbj5NKAvKiBnSUDIS87wvDnGnw2Z1hfYEumVF2gh9wNsPXX5sf5zca7By/MLnoo7q2PmyotD3ohnaIneP6wUsloXRdbYkUkOEmqeBoKFiYRaj7OPUDIYvpd6/GrSoZnecmu0zzkifBbyNYxRIFGWWw5UU8n+X+xJJQoofInasX7bvvLaI/7ASQey+sNxnc042K66Ola2/3kqcRkWp43CZa7HlHgDqKsG+yqP6WJP0C1QHSTijvQ86CMfYdgS4Tf7HqWI3qVzqn3iAjZeRqQJYgCUJYVAu5EiIlqhvat5NNI0uV55EzXMdeifD6SUHgbxExmXK9sFETb2z3OI24peHh2AzWj6n+8mNGnSliqkG3lWupogfj2vPI7tSpDS/kJUyzOcRMaPR8VFTuXPth396qLvjkKTcCv3Gh2eLKpKliVWFC+93G9HFjcnU0C0jFnprg5PkFlrAV5G7V38mYqxl77/wI+X3Q4ZJXrRdgXiQ5IXWtEgqvjd9a+KwDV19JI2tc=
+    organization: "mddm-github"
+    token:
+      secure: "K58nlQLtyipATdrNGRoXdu8QTnivAAWFiCxXZjJhKwr0ZMExkNLoRaN8UBPQgu/yhkt+B+fs4quWITn5XO9qR11FIaokrfZT2Lzq3AAAMhFNXcAYmSFMOQbD45JMsjXi2SJxuDCguGWLuE9O+AVXmRQmc3WXUZ88uC63yU+3zkbj5NKAvKiBnSUDIS87wvDnGnw2Z1hfYEumVF2gh9wNsPXX5sf5zca7By/MLnoo7q2PmyotD3ohnaIneP6wUsloXRdbYkUkOEmqeBoKFiYRaj7OPUDIYvpd6/GrSoZnecmu0zzkifBbyNYxRIFGWWw5UU8n+X+xJJQoofInasX7bvvLaI/7ASQey+sNxnc042K66Ola2/3kqcRkWp43CZa7HlHgDqKsG+yqP6WJP0C1QHSTijvQ86CMfYdgS4Tf7HqWI3qVzqn3iAjZeRqQJYgCUJYVAu5EiIlqhvat5NNI0uV55EzXMdeifD6SUHgbxExmXK9sFETb2z3OI24peHh2AzWj6n+8mNGnSliqkG3lWupogfj2vPI7tSpDS/kJUyzOcRMaPR8VFTuXPth396qLvjkKTcCv3Gh2eLKpKliVWFC+93G9HFjcnU0C0jFnprg5PkFlrAV5G7V38mYqxl77/wI+X3Q4ZJXrRdgXiQ5IXWtEgqvjd9a+KwDV19JI2tc="
 
 jdk:
-- oraclejdk8
+  - oraclejdk8
 
 script:
-- sbt "scalatest/testOnly com.whisk.docker.MongodbServiceSpec"
-- sbt "scalatest/testOnly com.whisk.docker.ElasticsearchServiceSpec"
-- sbt "scalatest/testOnly com.whisk.docker.KafkaServiceSpec"
-- sonar-scanner
+  - sbt "scalatest/testOnly com.whisk.docker.MongodbServiceSpec" #spotify executor
+  - sbt "scalatest/testOnly com.whisk.docker.ElasticsearchServiceSpec"  #docker-java executor
+  - sbt "scalatest/testOnly com.whisk.docker.KafkaServiceSpec" #spotify
+  - sonar-scanner
 
 cache:
   directories:
-  - "$HOME/.ivy2/cache"
-  - "$HOME/.sbt/boot/"
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot/
 
 before_cache:
-- find $HOME/.ivy2 -name "ivydata-*.properties" -delete
-- find $HOME/.sbt -name "*.lock" -delete
-
-
+  # Tricks to avoid unnecessary cache updates
+  - find $HOME/.ivy2 -name "ivydata-*.properties" -delete
+  - find $HOME/.sbt -name "*.lock" -delete
